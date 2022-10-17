@@ -1,0 +1,24 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Panas Donny",
+  "data": {
+      "url": "https://raw.githubusercontent.com/DonnyAriyan/Impact-of-COVID-19-on-shareprice/main/GDP%20per%20capita%20w%20Population%20and%20DatesUPDATEDD.csv"
+  },
+
+      "mark": "line",
+      "encoding": {
+          "x": {
+              "field": "Year(Date)",
+              "timeUnit": "year"
+          },
+          "y": {
+              "field": "WorldGDP",
+              "type": "quantitative",
+              "title": "Panas Donny"
+          },
+          "color": {
+
+              "type": "nominal"
+          }
+      }
+  }

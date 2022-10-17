@@ -1,0 +1,104 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 400,
+    "height": 300,
+    "title": "Figure 5: Percentage (%) change for GDP per capita in 2019 vs in 2020 for various countries.",
+    "data": {
+        "url": "https://raw.githubusercontent.com/DonnyAriyan/Impact-of-COVID-19-on-shareprice/main/GDP%20per%20capita%20w%20Population.csv"
+    },
+    "transform": [
+        {
+            "filter": "datum.Year2019 > 0"
+        },
+        {
+            "filter": "datum.Year2020 > 0"
+        },
+        {
+            "calculate": "datum.Year1019/datum.POP2019 * 10000",
+            "as": "..."
+        },
+        {
+            "filter": "datum.POP2019 > Population_Above"
+        }
+    ],
+    "params": [
+        {
+            "name": "Population_Above",
+            "value": 0,
+            "bind": {
+                "input": "range",
+                "min": 0,
+                "max": 100000000,
+                "step": 1000000,
+                "name": "Population: "
+            }
+        }
+    ],
+    "mark": "circle",
+    "encoding": {
+        "x": {
+            "field": "Year2019",
+            "type": "quantitative",
+            "title": "Percentage (%) change in GDP per capita in 2019"
+        },
+        "y": {
+            "field": "Year2020",
+            "type": "quantitative",
+            "title": "Percentage (%) change in GDP per capita in 2020"
+        },
+        "color": {
+            "field": "Country",
+            "type": "nominal"
+        },
+        "opacity": {
+            "value": 0.6
+        },
+        "size": {
+            "field": "POP2019",
+            "type": "quantitative",
+            "title": "Population size",
+            "scale": {
+                "type": "threshold",
+                "domain": [
+                    1000000,
+                    10000000,
+                    50000000,
+                    100000000,
+                    500000000
+                ],
+                "range": [
+                    10,
+                    50,
+                    150,
+                    200,
+                    300,
+                    400
+                ]
+            },
+            "legend": {
+                "format": ".1s"
+            }
+        },
+        "tooltip": [
+            {
+                "field": "Entity",
+                "type": "nominal"
+            },
+            {
+                "field": "Year2019",
+                "type": "quantitative",
+                "format": ","
+            },
+            {
+                "field": "Year2020",
+                "type": "quantitative",
+                "format": ","
+            },
+            {
+                "field": "Population",
+                "type": "quantitative",
+                "format": ".2f"
+            }
+        ]
+    }
+}

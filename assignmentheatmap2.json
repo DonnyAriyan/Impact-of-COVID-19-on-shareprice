@@ -1,0 +1,31 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Figure 3: Percentage (%) change in GDP for the same 5 countries but for the previous year, 2019.",
+  "width":250,
+  "height":150,
+  "data": {
+    "url": "https://raw.githubusercontent.com/DonnyAriyan/Impact-of-COVID-19-on-shareprice/main/GDP%20per%20capita%20w%20Population%20and%20Dates%20FULLY%20UPDATED%20DONNY.csv"},
+    "mark": "rect",
+    "encoding": {
+      "y": {
+        "field": "Country(MostAffected)",
+        "type": "nominal"
+      },
+      "x": {
+        "field": "2019GDP",
+        "type": "ordinal"
+      },
+      "color": {
+        "aggregate": "mean",
+        "field": "2019GDP"
+      }
+    },
+    "config": {
+      "axis": {
+        "grid": true,
+        "tickBand": "extent"
+      }
+    }
+  }
+
+
