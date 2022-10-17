@@ -1,0 +1,99 @@
+.GDP-per-capita_text {
+    color: #2590c8
+}
+
+.COVID-19_text {
+    color: #d13141
+}
+h1{
+    font-family: 'PT Serif', serif;
+}
+
+h2 {
+    font-family: 'PT Serif', serif;
+}
+
+p {
+    font-family: 'PT Serif', serif;
+}
+
+/* CLass Selector */
+.class-select {
+    color: blue;
+}
+
+.tab {
+    padding-left: 14em;
+}
+
+.indebt {
+    padding-left: 15em;
+}
+
+.column {
+    float: left;
+}
+
+.left {
+    width: 50%;
+}
+
+.right {
+    width: 50%;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.arrow-highlight {
+    position: relative;
+    margin: 0 0.5em;
+    padding: 0 0.2em;
+}
+
+.arrow-highlight:before {
+    content: "";
+    z-index: -1;
+    left: -0.5em;
+    top: 0.1em;
+    border-width: 0.5em;
+    border-style: solid;
+    border-color:aquamarine;
+    position: absolute;
+    width: calc(100% - 0.5em);
+    border-left-color: transparent;
+}
+
+.arrow-highlight:after {
+    content: "";
+    z-index: -1;
+    right: 0;
+    top: 0.1em;
+    border-width: 0.5em;
+    border-style: solid;
+    border-color: aquamarine;
+    position: absolute;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    transform: rotate(180deg);
+    transform-origin: center right;
+}
+
+mark {
+    background-color: #c0ffc8;
+}
+
+.center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+
+.content {
+    max-width: 1000px;
+    margin: auto;
+  }
