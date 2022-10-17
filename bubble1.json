@@ -4,7 +4,7 @@
     "height": 400,
     "title": "COVID-19 Cases per Country (13 Oct 2020)",
     "data": {
-        "url": "https://raw.githubusercontent.com/DonnyAriyan/Impact-of-COVID-19-on-shareprice/main/GDP%20per%20capita%20w%20Population.csv"
+        "url": "https://raw.githubusercontent.com/DonnyAriyan/Impact-of-COVID-19-on-shareprice/main/GDP%20per%20capita%20w%20Population%20and%20Dates%20FULLY%20FULLY%20UPDATED%20DONNY%20ARIYAN.csv"
     },
     "transform": [
         {

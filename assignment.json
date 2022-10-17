@@ -1,210 +1,83 @@
-<!DOCTYPE html>
-<html>
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Figure 4: Percentage (%) change in GDP per capita by the International Monetary Fund from the years, 2019-2020.",
+    "width": 800,
+    "height": 400,
+    "projection": {"type": "equalEarth","scale":{"expr": "zoom_level"}, "center": {"expr": "center_to"}},
+    "data": {
+      "url": "https://raw.githubusercontent.com/DonnyAriyan/Impact-of-COVID-19-on-shareprice/main/ne_110m.json",
+      "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+    },
+    "params": [
+      {
+      "name": "zoom_level",
+      "value": 125,
+      "bind": {
+        "input": "range",
+        "min": 100,
+        "max": 3000,
+        "step": 100,
+        "name": "Zoom: "
+      }
+    },
+    {
+      "name": "center_to",
+      "value": [0,0],
+      "bind": {
+        "input": "select",
+        "options": [
+          [0,0],
+          [100.01, 34.0],
+          [-120,53.8703],
+          [15.8725, 54.9369],
+          [-50, -10],
+          [34.1067, 8.4874],
+          [140.0196, -20.1]
 
-<head>
+        ],
+        "labels": [
+          "World Map",
+          "Asia",
+          "North America",
+          "Europe",
+          "South America",
+          "Africa",
+          "Oceania"
+        ],"name": "Map Centre: "
+      }
+    }
+  ],
+    "transform": [
+      {
+        "lookup": "properties.NAME",
+        "from": {
+          "data": {
+            "url": "https://raw.githubusercontent.com/DonnyAriyan/Impact-of-COVID-19-on-shareprice/main/GDP%20per%20capita%20w%20Population%20and%20Dates%20FULLY%20FULLY%20UPDATED%20DONNY%20ARIYAN.csv"
+          },
+          "key": "Country",
+          "fields": ["Year2020"]
+        }
+      },
+      {"calculate": "datum.Year2020", "as": "Year2020"}
+    ],
+    "mark": {"type": "geoshape"},
+    "encoding": {
+      "color": {
+        "field": "Year2020",
+        "type": "quantitative",
+        "title": "Percentage (%) change in GDP",
+        "scale": {
+          "type": "threshold",
+          "domain": [-50,-25,-12, 3, 0, 3, 12, 25, 50],
+          "range": ["#b71414", "#e83f3f", "#de6e6e","#e8a2a2","#ebd0d0","#cad8ed","#a7c0e6", "#6e9de5", "#11489c"] 
+          }
+        },
 
-    <title> COVID-19 And It's Impact on Gross Domestic Product (GDP per capita of various countries)</title>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
-    <script src="assignment.js"></script>
-
-
-    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
-        integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=PT+Serif&display=swap" rel="stylesheet">
-
-
-    <link rel="stylesheet" href="assignment.css">
-
-</head>
-
-<body>
-    <div class="content">
-        <h1 style="color:darkslateblue;">COVID-19 And It's <span class="arrow-highlight">Impact</span> on Gross Domestic
-            Product per capita
-            (GDP per capita) of various countries across the
-            globe</h1>
-        <div class="row">
-            <div class="column left">
-                <h2> What is the effect of COVID-19 on a global scale?</h2>
-                <p>It is undeniable that <span class='COVID-19_text'> COVID-19 </span> pandemic had presented us with
-
-                    new challenges such as not only <b>social
-                        disruption</b> but also as a <b>profound risk </b>to the health and growth economies
-                    of countries the
-                    globe.
-                    This can be measured by Gross Domestic Product per capita or <span class='GDP-per-capita_text'>
-                        GDP-per-capita </span> which, in
-                    short, refers to the <b>overall
-                        health</b> of the economy of a particular country, measured by the total monetary value of
-                    all
-                    final
-                    goods
-                    and services produced and sold in the economy divided by the total population.
-                </p>
-            </div>
-
-            <div class="column right">
-                <div id="line"></div>
-            </div>
-        </div>
-
-        <div id="line" , class="tab"></div>
-        <div class="row">
-            <div class="column left">
-                <br><br><br>
-                <div id="heatmap"></div>
-            </div>
-
-
-            <div class="column right" class="tab">
-                <h2> Which countries were most affected in the year, in terms of <span class='GDP-per-capita_text'>
-                        GDP-per-capita </span>, by the <span class='COVID-19_text'> COVID-19 </span>? </h2>
-                <p>Here, we have compiled the top 5 countries most affected by <span class='COVID-19_text'> COVID-19
-                    </span> in the year, 2020; The Bahamas,
-                    Lebanon, etc. When comparing percentage (%) change values from the heatmap for the exact same 5
-                    countries for the previous year, 2019, we can see that, for example, Maldives was experiencing a
-                    6.9% increase in its <span class='GDP-per-capita_text'>
-                        GDP-per-capita </span> when compared to 2018 however, when looking at its 2020 <span
-                        class='GDP-per-capita_text'>
-                        GDP-per-capita </span> we can observe a significant slump in its <span
-                        class='GDP-per-capita_text'>
-                        GDP-per-capita </span> from 6.9% to -33.5%, this is a 40.4%
-                    difference. Looking at a <span class='GDP-per-capita_text'>
-                        GDP-per-capita </span> of -33.5% individually is already shocking. This means that
-                    there is, on average, a 33.5% decrease in the economic output per person in Maldives.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="content">
-        <div class="row">
-            <div class="column left">
-                <h2> What is the difference in these 5 countries' <span class='GDP-per-capita_text'>
-                        GDP-per-capita </span> from the previous year, 2019?</h2>
-                When looking within the scope of the <span class='GDP-per-capita_text'>
-                    GDP-per-capita </span> percentage (%) change we can deduce that although
-                some of these countries were already experiencing declines in <span class='GDP-per-capita_text'>
-                    GDP-per-capita </span> growth, it is quite
-                unanimous that these declines in <span class='GDP-per-capita_text'>
-                    GDP-per-capita </span> are very trivial compared to the values in 2020,
-                reaching unprecedented levels, for example, Macao experiencing a -54% decline. It is true and important
-                to note that although <span class='COVID-19_text'> COVID-19 </span> does explain a large extent it does
-                not explain the full extent of this
-                decrease as there are a multitude of other external factors such as government intervention via policy
-                implementation or change.
-            </div>
-            <br><br>
-            <div class="column right">
-                <div id="heatmap2"></div>
-            </div>
-        </div>
-
-
-
-        <div class="column right">
-            <div id="line"></div>
-        </div>
-    </div>
-
-    <br><br>
-    <div id="choropleth" , class="tab"></div>
-    <div class="content">
-        <p> Through observing Figure 1, we are able to interpret that in the year, 2020, the economy on a global scale
-            was profoundly impacted by <span class='COVID-19_text'> COVID-19 </span> where many economies faced a huge
-            downturn ultimately, having
-            implications of economic turmoil and decreased productivity. We are also able to deduce that even the
-            <span class='COVID-19_text'> COVID-19 </span> pandemic first surfaced in late 2018, economies began to
-            suffer the full effects in 2020 where
-            majority of the countries experienced negative percentage (%) change in <span class='GDP-per-capita_text'>
-                GDP-per-capita </span> (denoted by countries
-            that are
-            red in colour) except for Guyana which experienced a 43.5% increase in its <span
-                class='GDP-per-capita_text'>
-                GDP-per-capita </span> relative to the
-            previous
-            year, 2019.
-        </p>
-    </div>
-    <div class="content">
-        <div class="row">
-            <div class="column left">
-                <div id="bubblechart"></div>
-            </div>
-            <div class="column right">
-                <p class="indebt">Here, we aim to find if there is any form <br> of <b>correlation</b> between the
-                    percentage (%) change in <span class='GDP-per-capita_text'>
-                        GDP-per-capita </span> in 2019 between that in 2020, which can be achieved by filtering
-                    countries experiencing
-                    increases in <span class='GDP-per-capita_text'>
-                        GDP-per-capita </span> in both years, 2019 and 2020. From observation, we can extrapolate that,
-                    in 2019, majority of the countries experienced a percentage change of 7% or below however, when
-                    looking from the percentage change of <span class='GDP-per-capita_text'>
-                        GDP-per-capita </span> from 2020, we can see that many countries
-                    experienced a <span class='GDP-per-capita_text'>
-                        GDP-per-capita </span> change, in percentage, of less than 5% with one country, the Congo,
-                    experiencing an approximate 43% change which is an outlier. Hence, on average, out of the countries
-                    that experienced an increase in <span class='GDP-per-capita_text'>
-                        GDP-per-capita </span> for both years, there is significantly less of an
-                    increase in that percentage change in <span class='GDP-per-capita_text'>
-                        GDP-per-capita </span> in the year of 2020 relative to 2019, with the
-                    majority experiencing declines in <span class='GDP-per-capita_text'>
-                        GDP-per-capita </span>, which are filtered out of this idiom.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="content">
-        <div class="row">
-            <div class="column left">
-                <div id="barchart"></div>
-            </div>
-            <div class="column right">
-                <p> In this idiom, the five most <span class='COVID-19_text'> COVID-19 </span> affected countries have
-                    been regressed with the five least
-                    <span class='COVID-19_text'> COVID-19 </span> affected countries, these countries are regressed
-                    against their very own, exact
-                    <span class='GDP-per-capita_text'>
-                        GDP-per-capita </span> for the year, 2020. Here, we can observe that the <b>aggregate
-                        difference</b> between the total in
-                    <span class='GDP-per-capita_text'>
-                        GDP-per-capita </span> decreases heavily exceeds the total in the <span
-                        class='GDP-per-capita_text'>
-                        GDP-per-capita </span> increases (in the top 5
-                    countries that have experienced a positive <span class='GDP-per-capita_text'>
-                        GDP-per-capita </span> growth in 2020). From this, we can
-                    conclude that <span class='COVID-19_text'> COVID-19 </span> was indeed a <b>large factor</b> in play
-                    in the economic crisis and turmoil that
-                    unfolded causing economies to slump and markets to crash.
-                </p>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="content">
-        <h2>What can we take out of this?</h2>
-        <p>In spite of the <b>optimism</b> towards the future of the financial markets and the economy, <span
-                class='COVID-19_text'> COVID-19 </span> has still challenged the world and has established itself as one
-            of the largest risks to economic development.</p>
-
-        <p> <mark>This visualisation is created by Donny Ariyan for FIT3179 - Data Visualisation 2 </a>. The datasource
-                used
-                is
-                from the International Monetary Fund, March (2022) which can be accessed <a
-                    href="https://www.imf.org/external/datamapper/NGDPDPC@WEO/OEMDC/ADVEC/WEOWORLD"> here. </mark></a>
-        </p>
-    </div>
-
-</body>
-
-</html>
+        
+    
+      "tooltip": [
+        {"field": "properties.NAME", "type": "nominal", "title": "Country"},
+        {"field": "Year2020", "type": "quantitative"}
+      ]
+    }
+  }

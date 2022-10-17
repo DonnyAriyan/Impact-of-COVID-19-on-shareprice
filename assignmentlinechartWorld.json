@@ -2,7 +2,7 @@
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": "Figure 1: GDP per capita of the World for the years, 2017-2021",
     "data": {
-        "url": "https://raw.githubusercontent.com/DonnyAriyan/Impact-of-COVID-19-on-shareprice/main/GDP%20per%20capita%20w%20Population%20and%20DatesUPDATEDD.csv"
+        "url": "https://raw.githubusercontent.com/DonnyAriyan/Impact-of-COVID-19-on-shareprice/main/GDP%20per%20capita%20w%20Population%20and%20Dates%20FULLY%20FULLY%20UPDATED%20DONNY%20ARIYAN.csv"
     },
 
         "mark": "line",
